@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="/headcontent" th:remove="tag"></head>
+<body>
+<div class="container">
+    <form action="#" th:action= "@{/addStudent}" th:object="${student}" method="post" commandName="addStudent " class="well form-horizontal" id="addStudent_form" enctype="multipart/form-data">
+        <div class="form-group">
+            <div  class="col-md-4  addStudentLabel col-md-offset-3"><h2>Add Student</h2></div>
+        </div>
+
+        <div class="form-group">
+            <label  class="col-md-4 control-label">First Name : </label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="" class="form-control"  type="text" th:field="*{firstname}" placeholder="First Name"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-md-4 control-label">Last Name : </label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="" class="form-control"  type="text" th:field="*{lasttname}" placeholder="Last Name"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-md-4 control-label">Date of Birth : </label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="" class="form-control"  type="date" th:field="*{dob}"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Country :</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <input id="" class="form-control"  type="text" th:field="*{address.country}" placeholder="Country"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">City :</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <input id="" class="form-control"  type="text" th:field="*{address.city}" placeholder="City"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Address :</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <input id="" class="form-control"  type="text" th:field="*{address.address}" placeholder="Address"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Phone : </label>
+            <div class="col-md-4 selectContainer">
+                <div class="input-group"  th:each="phone, stat : *{phones}">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                    <select id="" class="form-control selectpicker" th:field="*{phones[__${stat.index}__].phoneType}">
+
+                            <option th:each="phoneType : ${phoneTypes}" th:value="${phoneType.phonetypeId}" th:field="*{phones[__${stat.index}__].phoneType}"><span th:text="${phoneType.name}"></span></option>
+
+                    </select>
+                    <div>
+                        <input th:field="*{phones[__${stat.index}__].number}" placeholder="0785xxxxxx" class="form-control" type="text" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Gender :</label>
+            <div class="col-md-4">
+                <div class="radio">
+                    <label><input type="radio" th:value="Male" th:field="*{gender}"/>Male</label>
+                    <label><input type="radio" th:value="Female" th:field="*{gender}"/>Female</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Group : </label>
+            <div class="col-md-4 selectContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    <select id="" class="form-control selectpicker" th:field="*{groupp}">
+                            <option th:each="groupp : ${groupps}" th:value="${groupp.groupId}" ><span th:text="${groupp.name}"></span></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Success message -->
+        <div class="form-group">
+            <label  class="col-md-4 control-label">Student Picture : </label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                    <input type="file" class="form-control" th:field="*{imageMultipart}"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-4">
+                <button type="submit" value="submit"  class="btn btn-warning " >Send<span class="glyphicon glyphicon-send"></span></button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="/headcontent" th:remove="tag"></head>
+<body>
+<div class="container">
+       <form action="" method="post">
+        <table class = "table-fill" id="student_table">
+            <thead>
+            <tr>
+                <th class="text-left">Check</th>
+                <th class="text-left">Picture</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Birth Day</th>
+                <th class="text-left">Gender</th>
+                <th class="text-left">Address</th>
+                <th class="text-left">Phone</th>
+                <th class="text-left">Library Abonament</th>
+                <th class="text-left">Marks</th>
+                <th class="text-left">Action</th>
+            </tr>
+            </thead>
+            <tbody th:each="student : ${students}" class="table-hover">
+                <tr>
+                    <td class="text-center"><input th:value="${student.id}" type="checkbox"  id="chk" name="delete[]"/></td>
+                    <td class="text-left"><img width="75" height="75" th:src = "'/image/' + ${student.Id} + .jpg" alt=""/></td>
+                    <td class="text-left"><p th:text="${student.firstname}"></p><p class="text-left" th:text="${student.lasttname}"></p></td>
+
+                    <td class="text-left" th:text="${student.dob}"></td>
+                    <td class="text-left" th:text="${student.gender}"></td>
+                    <td class="text-left" th:text="${student.address.address}"></td>
+                    <td class="text-left">
+                        <div th:each = "phone : ${student.phones}">
+                            <span th:text = "${phone.phoneType.name}"></span> :
+                            <span th:text ="${phone.number}"></span>
+
+                        </div>
+                    </td>
+                    <td class="text-left"> <a href="?" class="btn btn-default col-md-12 text-center">
+                        <p th:text = "'Status : ' + ${student.librarySubscription.status}" class="col-md-5 col-md-offset-3"></p><span class="glyphicon glyphicon-pencil col-md-1"></span></a>
+                        <p th:text = "'StartDate : ' + ${student.librarySubscription.startdate}"/>
+                        <p th:text = "'EndDate : ' + ${student.librarySubscription.enddate}"/>
+                    </td>
+                    <td class="text-left">
+                        <div th:each="mark : ${student.marks}">
+                            <span th:text="${mark.discipline.name}"></span>
+                            <span th:text="${mark.mark}"></span>
+                        </div>
+                    </td>
+                    <td class="text-left"><a href="?" class="btn btn-success">Edit <span class="glyphicon glyphicon-pencil"></span></a> <a href="?" class="btn btn-success">Add Mark <span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-group addStudentButton">
+            <a th:href="@{/addStudent}" class="btn btn-warning">Add New One <span class="glyphicon glyphicon-plus"></span></a>
+            <button id="button" type="submit" value="submit" class="btn btn-warning">Delete Student <span class="glyphicon glyphicon-minus"></span></button>
+        </div>
+
+    </form>
+    <!--<form action="${pageContext.request.contextPath}/StudentPage" method="get" class="well form-horizontal">-->
+        <!--<div class="row">-->
+            <!--<div class="form-group">-->
+                <!--<div  class="col-xs-6  addStudentLabel col-xs-offset-5"><h2>Search Student</h2></div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6">-->
+                <!--<div class="form-group">-->
+                    <!--<label  class="col-md-4 control-label">Name : </label>-->
+                    <!--<div class="col-md-6 inputGroupContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+                            <!--<input path="person.name" id="" class="form-control"  type="text" name ="person.name" placeholder="Person Name" value=""/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label">Address :</label>-->
+                    <!--<div class="col-md-6 inputGroupContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>-->
+                            <!--<input  path="1person.address" name="person.address" placeholder="Partial address" class="form-control" type="text"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label  class="col-md-4 control-label">Date of Birth(Start) : </label>-->
+                    <!--<div class="col-md-6 inputGroupContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+                            <!--<input path="person.dob" id="" class="form-control"  type="date" name ="person.dobStart"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label  class="col-md-4 control-label">Date of Birth(End) : </label>-->
+                    <!--<div class="col-md-6 inputGroupContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+                            <!--<input path="person.dob" id="" class="form-control"  type="date" name ="person.dobEnd"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label">Group : </label>-->
+                    <!--<div class="col-md-6 selectContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>-->
+                            <!--<select name="groups" id="" class="form-control selectpicker">-->
+                                <!--<option disabled selected value> &#45;&#45; select an option &#45;&#45; </option>-->
+                                <!--<c:forEach items="${groups}" var="group">-->
+                                    <!--<option value="<c:out value="${group.id}"/>">${group.name}</option>-->
+                                <!--</c:forEach>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6">-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label">Gender :</label>-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="radio">-->
+                            <!--<label><input type="radio" path="person.gender" value="Male" name="gender"/>Male</label>-->
+                            <!--<label><input type="radio" path="person.gender" value="Female" name="gender"/>Female</label>-->
+                            <!--<label><input type="radio" path="person.gender" value="" name="gender" checked/>All</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label">Discipline : </label>-->
+                    <!--<div class="col-md-6 selectContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>-->
+                            <!--<select name="discipline" id="" class="form-control selectpicker">-->
+                                <!--<option disabled selected value> &#45;&#45; select an option &#45;&#45; </option>-->
+                                <!--<c:forEach items="${disciplines}" var="discipline">-->
+                                    <!--<option value="<c:out value="${discipline.id}"/>">${discipline.title}</option>-->
+                                <!--</c:forEach>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label">TotalAverage : </label>-->
+                    <!--<div class="col-md-6 selectContainer">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>-->
+                            <!--<input path="1mark" id="" value="" class="form-control" name="total_average"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-xs-4 col-xs-offset-2">-->
+                    <!--<button type="submit" value="submit"  name="search" class="btn btn-warning " >Search <span class="glyphicon glyphicon-search"></span></button>-->
+                    <!--<a href="${pageContext.request.contextPath}/StudentPage" class="btn btn-warning ">Reset <span class="glyphicon glyphicon-refresh"></span></a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+    <!--<div class="table-title text-center">-->
+        <!--<h3>Students</h3>-->
+    <!--</div>-->
+
+</div>
+</body>
+</html>
