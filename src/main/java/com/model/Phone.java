@@ -1,6 +1,10 @@
 package com.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Student on 2/22/2017.
@@ -8,6 +12,7 @@ import javax.persistence.*;
 @Entity
 public class Phone {
     private Long phoneId;
+    @NotEmpty(message = "Introduceti telefonul")
     private String number;
     private PhoneType phoneType;
     private Person person;

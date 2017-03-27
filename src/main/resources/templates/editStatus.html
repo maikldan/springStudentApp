@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="/headcontent" th:remove="tag"></head>
+<body>
+
+<div class="container">
+    <form  th:action= "@{/editStatus}" th:object="${librarySubscription}" method="post" commandName="editStatus" class="well form-horizontal" id="editStatus_form">
+        <input type="hidden" th:field="*{libsubscriptionId}"/>
+        <div class="form-group">
+            <div  class="col-md-4  addStudentLabel col-md-offset-3"><h2 th:text="'Edit status for : ' + ${student.firstname}"></h2></div>
+        </div>
+        <div class="form-group">
+        <label  class="col-md-4 control-label">Status : </label>
+        <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-stats"></i></span>
+                <select name="status" id=""  class="form-control selectpicker" th:field="*{status}">
+                        <option th:selected="*{status}" value="ACTIVE">ACTIVE</option>
+                        <option th:selected="*{status}" value="NONE">NONE</option>
+                        <option th:selected="*{status}" value="SUSPENDED">SUSPENDED</option>
+                </select>
+            </div>
+        </div>
+    </div>
+        <div class="form-group">
+            <label  class="col-md-4 control-label">Start Date : </label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    <input  id="" type= "date" th:field ="*{startdate}" class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-md-4 control-label">End Date : </label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    <input  id=""  type= "date" th:field="*{enddate}" th:value="*{enddate}" class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-4">
+                <button type="submit" value="submit"  class="btn btn-warning" >Edit<span class="glyphicon glyphicon-send"></span></button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

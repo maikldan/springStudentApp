@@ -1,10 +1,15 @@
 package com.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.sql.Date;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -15,14 +20,25 @@ import java.util.Collection;
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Person {
     private Long id;
+    @NotNull
+    @Size(min=2, max=30, message = "Prenumele trebuie sa contina mai mult de 3 litere")
     private String firstname;
+    @NotNull
+    @Size(min=2, max=30, message = "Numele trebuie sa contina mai mult de 3 litere")
     private String lasttname;
+    @NotNull(message = "Alegeti data nasterei studentului")
+    @Past(message = "Ziua de nastere poate fi numai din trecut")
+    @DateTimeFormat(pattern="yyyy-mm-dd")
     private Date dob;
+    @NotNull(message = "Alegeti genul persoanei")
     private String gender;
     private String picturePath;
+    @Valid
     private Address address;
     private LibrarySubscription librarySubscription;
+    @Valid
     private Collection<Phone> phones;
+//    @NotNull(message = "Alegeti fotografia studentului")
     @Transient
     private MultipartFile imageMultipart;
     @Transient

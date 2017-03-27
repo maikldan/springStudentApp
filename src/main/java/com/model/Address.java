@@ -1,6 +1,10 @@
 package com.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 /**
@@ -9,8 +13,11 @@ import java.util.Collection;
 @Entity
 public class Address {
     private Long addressId;
+    @NotEmpty(message = "Introduceti Tara")
     private String country;
+    @NotEmpty(message = "Introduceti Orasul")
     private String city;
+    @NotEmpty(message = "Introduceti Adresa")
     private String address;
     private Collection<Person> peopleByAddressId;
 

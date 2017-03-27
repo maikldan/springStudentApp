@@ -1,6 +1,7 @@
 package com.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.sql.Time;
 
 /**
@@ -8,8 +9,13 @@ import java.sql.Time;
  */
 @Entity
 public class Mark {
+
     private Long markId;
-    private Double mark;
+    @NotNull
+    @DecimalMin("1.0")
+    @DecimalMax("10.0")
+    @Column(name = "mark")
+    private Double value;
     private Time createdate;
     private Double calculatescholarship;
     private Discipline discipline;
@@ -17,6 +23,7 @@ public class Mark {
     private Student student;
 
     @Id
+    @GeneratedValue
     @Column(name = "mark_id", nullable = false, insertable = false, updatable = false)
     public Long getMarkId() {
         return markId;
@@ -28,12 +35,12 @@ public class Mark {
 
     @Basic
     @Column(name = "mark", nullable = true, precision = 0)
-    public Double getMark() {
-        return mark;
+    public Double getValue() {
+        return value;
     }
 
-    public void setMark(Double mark) {
-        this.mark = mark;
+    public void setValue(Double mark) {
+        this.value = mark;
     }
 
     @Basic

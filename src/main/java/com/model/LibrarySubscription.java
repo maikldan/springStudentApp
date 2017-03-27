@@ -1,6 +1,9 @@
 package com.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -12,8 +15,8 @@ import java.util.Collection;
 public class LibrarySubscription {
     private Long libsubscriptionId;
     private String status;
-    private Timestamp startdate;
-    private Timestamp enddate;
+    private Date startdate;
+    private Date enddate;
     private Collection<Person> people;
 
     @Id
@@ -39,21 +42,21 @@ public class LibrarySubscription {
 
     @Basic
     @Column(name = "startdate", nullable = true)
-    public Timestamp getStartdate() {
+    public Date getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(Timestamp startdate) {
+    public void setStartdate(Date startdate) {
         this.startdate = startdate;
     }
 
     @Basic
     @Column(name = "enddate", nullable = true)
-    public Timestamp getEnddate() {
+    public Date getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(Timestamp enddate) {
+    public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
 

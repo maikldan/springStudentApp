@@ -2,6 +2,8 @@ package com.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Student on 2/22/2017.
@@ -13,6 +15,19 @@ public class Student extends Person{
     private Collection<DisciplineAverage> disciplineAverages;
     private Collection<Mark> marks;
     private Groupp groupp;
+
+
+    @SuppressWarnings({"JpaAttributeMemberSignatureInspection", "JpaAttributeTypeInspection"})
+    @Transient
+    public Map<String, Double> getDisciplineAverageMark() {
+        HashMap<String, Double> map = new HashMap<>();
+        for (Mark mark : marks) {
+            String title = mark.getDiscipline().getName();
+            map.putIfAbsent(title, marks.stream().filter(mark1 -> mark1.getDiscipline().getName().equals(title))
+                    .mapToDouble(Mark::getValue).average().orElse(0.0));
+        }
+        return map;
+    }
 
     @Basic
     @Column(name = "calculatescholarship", nullable = true, precision = 0)
